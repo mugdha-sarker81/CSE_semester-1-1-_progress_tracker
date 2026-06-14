@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KUET CSE 1st Semester Tracker | 2021-2022 Syllabus</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .header p {
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin: -2rem auto 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Progress Overview */
+        .progress-overview {
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            padding: 0 1.5rem;
+        }
+
+        .progress-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .progress-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .overall-progress {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .progress-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success) var(--progress, 0%), var(--surface-light) 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .progress-circle::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--surface);
+            border-radius: 50%;
+        }
+
+        .progress-circle span {
+            position: relative;
+            z-index: 1;
+            font-size: 0.875rem;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: var(--surface-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: var(--progress, 0%);
+        }
+
+        /* Course Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Course Card */
+        .course-card {
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .course-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+        }
+
+        .course-card.completed {
+            border-color: var(--success);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+
+        .course-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(124, 58, 237, 0.1));
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .course-code {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .course-body {
+            padding: 1.5rem;
+        }
+
+        .topics-list {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .topic-item:hover {
+            color: var(--accent);
+        }
+
+        .topic-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .topic-checkbox.checked {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .topic-checkbox.checked i {
+            display: block;
+            font-size: 0.75rem;
+        }
+
+        .topic-checkbox i {
+            display: none;
+        }
+
+        .topic-text {
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .topic-item.completed .topic-text {
+            text-decoration: line-through;
+            opacity: 0.5;
+        }
+
+        .course-progress {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .course-progress-text {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .course-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--surface-light);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .course-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        /* Resources Section */
+        .resources-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .resources-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            color: var(--accent);
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .resources-toggle:hover {
+            opacity: 0.8;
+        }
+
+        .resources-content {
+            display: none;
+            margin-top: 0.5rem;
+        }
+
+        .resources-content.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .resource-category {
+            margin-bottom: 1rem;
+        }
+
+        .resource-category-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .resource-link:hover {
+            background: rgba(37, 99, 235, 0.1);
+            transform: translateX(5px);
+        }
+
+        .resource-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .resource-icon.youtube {
+            background: #ff0000;
+            color: white;
+        }
+
+        .resource-icon.course {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .resource-icon.doc {
+            background: var(--success);
+            color: white;
+        }
+
+        .resource-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .resource-name {
+            font-weight: 500;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .resource-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--surface);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--text);
+        }
+
+        .notes-area {
+            width: 100%;
+            min-height: 150px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text);
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .notes-area:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-tab:hover:not(.active) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--surface);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.show {
+            display: flex;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border);
+        }
+
+        .save-indicator {
+            font-size: 0.75rem;
+            color: var(--success);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .save-indicator.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <h1><i class="fas fa-graduation-cap"></i> KUET CSE Semester 1</h1>
+        <p>Khulna University of Engineering & Technology | Session 2021-2022</p>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-value" id="totalCourses">7</div>
+            <div class="stat-label">Total Courses</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="completedTopics">0</div>
+            <div class="stat-label">Topics Done</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="totalCredits">18.75</div>
+            <div class="stat-label">Total Credits</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="weeklyHours">22.5</div>
+            <div class="stat-label">Hours/Week</div>
+        </div>
+    </div>
+
+    <div class="progress-overview">
+        <div class="progress-card">
+            <div class="progress-header">
+                <div class="progress-title"><i class="fas fa-chart-line"></i> Overall Progress</div>
+                <div class="overall-progress">
+                    <div class="progress-circle" id="overallCircle" style="--progress: 0%">
+                        <span id="overallPercent">0%</span>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600;" id="progressText">0 of 0 topics</div>
+                        <div style="font-size: 0.875rem; color: var(--text-muted);">Keep pushing!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="overallBar" style="--progress: 0%"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
+                <span>Started</span>
+                <span id="saveStatus" class="save-indicator"><i class="fas fa-check"></i> Auto-saved</span>
+                <span>Mastered</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <h2 class="section-title"><i class="fas fa-book-open"></i> Course Syllabus</h2>
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterCourses('all')">All</button>
+                <button class="filter-tab" onclick="filterCourses('theory')">Theory</button>
+                <button class="filter-tab" onclick="filterCourses('lab')">Laboratory</button>
+                <button class="filter-tab" onclick="filterCourses('completed')">Completed</button>
+            </div>
+        </div>
+
+        <div class="course-grid" id="courseGrid">
+            <!-- Courses will be injected here -->
+        </div>
+    </div>
+
+    <!-- Notes Modal -->
+    <div class="modal-overlay" id="notesModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-sticky-note"></i> Study Notes</h3>
+                <button class="modal-close" onclick="closeNotes()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="color: var(--text-muted); margin-bottom: 1rem;" id="notesCourseTitle"></p>
+                <textarea class="notes-area" id="notesArea" placeholder="Write your study notes, important formulas, or reminders here..."></textarea>
+                <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+                    <button class="btn btn-outline" onclick="closeNotes()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveNotes()"><i class="fas fa-save"></i> Save Notes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Progress saved!</span>
+    </div>
+
+    <script>
+        // Course Data with Free Resources
+        const courses = [
+            {
+                code: "CSE 1101",
+                title: "Structured Programming",
+                credits: 3.0,
+                theory: 3,
+                lab: 0,
+                type: "theory",
+                topics: [
+                    "Programming Concepts & Structured Programming Language",
+                    "Data Types, Variables, Operators",
+                    "Type of Expressions, Control Structures",
+                    "Functions and Program Structures",
+                    "Parameter Passing, Scope Rules, Storage Classes",
+                    "Recursion, Header Files, Preprocessor, Arrays",
+                    "Strings and Pointers",
+                    "Pointers and Memory Addressing, Array & Pointer Arithmetic",
+                    "Strings, Algorithms",
+                    "User Defined Data Type: Structure, Union, Enumeration",
+                    "Input and Output: Standard I/O, Formatted I/O",
+                    "File Access, Dynamic Memory Allocation",
+                    "Valgrind, Garbage Collection",
+                    "Variable Length Argument List, Command Line Parameters",
+                    "Error Handling, Introduction to Graphics Routines",
+                    "Compiling, Make File, Debugging"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "C Programming - Neso Academy", url: "https://www.youtube.com/playlist?list=PLBlnK6fEyqRggZZgYpPMUxdY1CYkZtARR", desc: "Complete C Programming playlist" },
+                        { name: "C Programming - freeCodeCamp", url: "https://www.youtube.com/watch?v=KJgsSFANQW", desc: "4-hour full course" },
+                        { name: "Pointers in C - mycodeschool", url: "https://www.youtube.com/playlist?list=PL2_aWCzGMAwLZp6LMUKIUnmz3DTL6Z8z", desc: "Deep dive into pointers" }
+                    ],
+                    courses: [
+                        { name: "CS50: Introduction to CS", url: "https://cs50.harvard.edu/x/", desc: "Harvard's free CS course" },
+                        { name: "C Programming - Coursera (Audit)", url: "https://www.coursera.org/learn/c-programming", desc: "Duke University - Free to audit" }
+                    ]
+                }
+            },
+            {
+                code: "CSE 1102",
+                title: "Structured Programming Laboratory",
+                credits: 1.5,
+                theory: 0,
+                lab: 3,
+                type: "lab",
+                topics: [
+                    "Lab: Data Types and Variables Implementation",
+                    "Lab: Control Structures Practice",
+                    "Lab: Functions and Recursion",
+                    "Lab: Array and String Manipulation",
+                    "Lab: Pointer Arithmetic Exercises",
+                    "Lab: Structure and Union Implementation",
+                    "Lab: File Handling Programs",
+                    "Lab: Dynamic Memory Allocation",
+                    "Lab: Debugging with Valgrind",
+                    "Lab: Graphics Routines Implementation",
+                    "Lab: Make File Creation",
+                    "Lab: Command Line Arguments"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "C Programming Lab Exercises", url: "https://www.youtube.com/playlist?list=PLVlQHNRLflP8IGz6i3GfE_E0fF_d0f", desc: "Practical coding exercises" },
+                        { name: "C Practical Programs", url: "https://www.youtube.com/playlist?list=PLu0W_9lII9aiXlHcLx", desc: "Hands-on programming" }
+                    ],
+                    courses: [
+                        { name: "HackerRank C Practice", url: "https://www.hackerrank.com/domains/c", desc: "Free coding challenges" },
+                        { name: "LeetCode C Problems", url: "https://leetcode.com/problemset/", desc: "Algorithm practice" }
+                    ]
+                }
+            },
+            {
+                code: "CSE 1107",
+                title: "Discrete Mathematics",
+                credits: 3.0,
+                theory: 3,
+                lab: 0,
+                type: "theory",
+                topics: [
+                    "Set Theory: Properties, Partitions, Power Sets, Partially Ordered Sets",
+                    "Functions: Definitions, Compositions, Inverse Functions",
+                    "Generating Functions, Growth of Functions",
+                    "Relations: Relations on Sets, Equivalence Relations",
+                    "Partial Order Relations, Recurrence Relations",
+                    "Recursive Algorithms",
+                    "Mathematical Logic: Propositional Calculus, Predicate Calculus",
+                    "Mathematical Reasoning: Induction, Contradictions, Recursion, Proof Techniques",
+                    "Number Theory: Elementary Number Theory, Modular Arithmetic",
+                    "Counting: Permutations, Combinatorics, Inclusion-Exclusion",
+                    "Algebraic Structures: Rings and Groups",
+                    "Graph Theory: Graphs, Paths and Trees"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "Discrete Math - Neso Academy", url: "https://www.youtube.com/playlist?list=PLBlnK6fEyqRhqzJT0", desc: "Complete Discrete Math course" },
+                        { name: "MIT 6.042J Mathematics for CS", url: "https://www.youtube.com/playlist?list=PLB7540DEDD482", desc: "MIT OpenCourseWare" },
+                        { name: "Discrete Math - Trefor Bazett", url: "https://www.youtube.com/playlist?list=PLHXZ9OQGMqxersk8f", desc: "Comprehensive explanations" }
+                    ],
+                    courses: [
+                        { name: "Mathematics for CS - MIT OCW", url: "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/", desc: "Full MIT course materials" },
+                        { name: "Introduction to Discrete Math - Coursera", url: "https://www.coursera.org/learn/discrete-mathematics", desc: "University of California - Audit free" }
+                    ]
+                }
+            },
+            {
+                code: "PHY 1107",
+                title: "Physics",
+                credits: 3.0,
+                theory: 3,
+                lab: 0,
+                type: "theory",
+                topics: [
+                    "Heat and Thermodynamics: Kinetic Theory of Gases",
+                    "Gas Laws, Brownian Movement, Degrees of Freedom",
+                    "Maxwell's Law of Distribution of Velocities",
+                    "Zeroth Law of Thermodynamics, Adiabatic & Isothermal Transformation",
+                    "First Law of Thermodynamics, Carnot's Engine, Entropy",
+                    "Second Law of Thermodynamics, Third Law",
+                    "Wave and Oscillations: Simple Harmonic Motion, Superposition",
+                    "Damped and Forced Oscillation, Power Dissipation",
+                    "Wave Velocity and Group Velocity",
+                    "LASER Physics: History, Population Inversion, Stimulated Emission",
+                    "Ruby LASER, Gas LASER, He-Ne LASER, Semiconductor LASER",
+                    "Quantum Mechanics: Inadequacy of Classical Concepts",
+                    "Planck's Quantum Theory, Photoelectric Effect, Compton Effect",
+                    "Wave-Particle Duality, De-Broglie Waves, Uncertainty Principle",
+                    "Sommerfeld Relativistic Atomic Model, Orbital Angular Momentum",
+                    "Spin Angular Momentum, Total Angular Momentum",
+                    "Orbital Magnetic Quantum Number, Spin Magnetic Quantum Number",
+                    "Magnetic Moment of an Electron, Pauli's Exclusion Principle",
+                    "Time-dependent and Time-independent Schrödinger Equation",
+                    "Interpretation of Wavefunction, Probability Density",
+                    "Energy Eigen Values and Eigen Functions, Stationary States",
+                    "Optics: Spherical Aberration, Coma, Distortion, Astigmatism",
+                    "Curvature of Field, Chromatic Aberration and Dispersion",
+                    "Interference of Light: Huygens's Principle, Wave Front Construction",
+                    "Young's Double Slit Experiment, Fresnel's Bi-prism",
+                    "Interference due to Multiple Reflections, Newton's Rings"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "Physics - Khan Academy", url: "https://www.youtube.com/playlist?list=PLybg94GvOJ9", desc: "Thermodynamics & Waves" },
+                        { name: "Quantum Physics - MIT", url: "https://www.youtube.com/playlist?list=PLUl4u3cNGP61", desc: "MIT 8.04 Quantum Physics" },
+                        { name: "Optics - Professor Dave Explains", url: "https://www.youtube.com/playlist?list=PLybg94GvOJ9", desc: "Geometric & Physical Optics" }
+                    ],
+                    courses: [
+                        { name: "Physics I - MIT OCW", url: "https://ocw.mit.edu/courses/8-01sc-physics-i-classical-mechanics-fall-2016/", desc: "Classical Mechanics & Thermodynamics" },
+                        { name: "Quantum Mechanics - edX", url: "https://www.edx.org/course/quantum-mechanics", desc: "Georgetown University - Audit" }
+                    ]
+                }
+            },
+            {
+                code: "PHY 1108",
+                title: "Physics Laboratory",
+                credits: 1.5,
+                theory: 0,
+                lab: 3,
+                type: "lab",
+                topics: [
+                    "Lab: Verification of Gas Laws",
+                    "Lab: Thermal Expansion Coefficient",
+                    "Lab: Specific Heat Determination",
+                    "Lab: Simple Harmonic Motion Verification",
+                    "Lab: Determination of Spring Constant",
+                    "Lab: Young's Modulus by Searle's Method",
+                    "Lab: Determination of Wavelength by Diffraction Grating",
+                    "Lab: Newton's Rings Experiment",
+                    "Lab: LASER Properties and Applications",
+                    "Lab: Determination of Planck's Constant",
+                    "Lab: Photoelectric Effect Verification",
+                    "Lab: Interference and Diffraction Patterns"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "Physics Lab Experiments", url: "https://www.youtube.com/playlist?list=PLmNMSMaNjn", desc: "Common physics experiments" },
+                        { name: "Virtual Physics Labs", url: "https://www.youtube.com/playlist?list=PL0o_zxa4K1", desc: "Simulation-based learning" }
+                    ],
+                    courses: [
+                        { name: "PhET Interactive Simulations", url: "https://phet.colorado.edu/", desc: "Free physics simulations" },
+                        { name: "LabXchange - Harvard", url: "https://www.labxchange.org/", desc: "Virtual lab experiments" }
+                    ]
+                }
+            },
+            {
+                code: "HUM 1107",
+                title: "English and Human Communication",
+                credits: 3.0,
+                theory: 3,
+                lab: 0,
+                type: "theory",
+                topics: [
+                    "Introduction: Vocabulary Building, Rules of Syntax",
+                    "Grammatical Principles, Sentence Structure",
+                    "Correction of Errors, Transformation of Sentences",
+                    "Phrases and Idioms, Prefixes and Suffixes",
+                    "Notions/Functions of Language, Classes, Antonyms and Synonyms",
+                    "Written Communication: Comprehension, Construction of Paragraphs",
+                    "Precis Writing, Technical and Official Correspondence",
+                    "Technical Report Writing, Research Paper Writing",
+                    "Tender Notice, Free Composition, Personal Filing System",
+                    "Oral Communication: Listening Skills, Oral Presentation",
+                    "Audio-Visual Communication, Interviewing Skills"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "English Grammar - engVid", url: "https://www.youtube.com/playlist?list=PLxYD9HaZssJ", desc: "Complete grammar course" },
+                        { name: "Technical Writing - Coursera", url: "https://www.youtube.com/playlist?list=PLQ", desc: "Technical communication skills" },
+                        { name: "Public Speaking - TEDx", url: "https://www.youtube.com/playlist?list=PL", desc: "Presentation skills" }
+                    ],
+                    courses: [
+                        { name: "English Composition I - Coursera", url: "https://www.coursera.org/learn/english-composition", desc: "Duke University - Free audit" },
+                        { name: "Technical Communication - edX", url: "https://www.edx.org/course/technical-communication", desc: "Colorado State University" }
+                    ]
+                }
+            },
+            {
+                code: "HUM 1108",
+                title: "English and Human Communication Laboratory",
+                credits: 0.75,
+                theory: 0,
+                lab: 1.5,
+                type: "lab",
+                topics: [
+                    "Lab: Grammar Practice (Tense, Article, Preposition)",
+                    "Lab: Subject-Verb Agreement, Clause, Conditional & Sentence Structure",
+                    "Lab: Vocabulary Building - Correct and Precise Diction",
+                    "Lab: Affixes, Level of Appropriateness, Colloquial and Standard",
+                    "Lab: Developing Reading Skill - Skimming, Scanning, Predicting",
+                    "Lab: Inferring, Analyzing and Interpreting Variety of Texts",
+                    "Lab: Developing Writing Skill - Sentence Variety",
+                    "Lab: Generating Sentences, Clarity and Correctness",
+                    "Lab: Linking Sentences to Form Paragraphs, Writing Paragraphs",
+                    "Lab: Essays, Reports, Formal and Informal Letters",
+                    "Lab: Listening Skill and Note Taking",
+                    "Lab: Developing Speaking Skill - Oral Skills, Communicative Expressions",
+                    "Lab: Life at Home, Giving Advice and Opinion",
+                    "Lab: Instruction and Directions, Requests, Complaints, Apologies",
+                    "Lab: Describing People and Places, Narrating Events"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "English Speaking Practice", url: "https://www.youtube.com/playlist?list=PLD", desc: "Daily conversation practice" },
+                        { name: "IELTS Preparation - E2", url: "https://www.youtube.com/playlist?list=PL", desc: "Academic English skills" }
+                    ],
+                    courses: [
+                        { name: "Duolingo English Test Prep", url: "https://www.duolingo.com/", desc: "Free English practice" },
+                        { name: "BBC Learning English", url: "https://www.bbc.co.uk/learningenglish/", desc: "Free comprehensive English course" }
+                    ]
+                }
+            },
+            {
+                code: "MATH 1107",
+                title: "Differential and Integral Calculus",
+                credits: 3.0,
+                theory: 3,
+                lab: 0,
+                type: "theory",
+                topics: [
+                    "Differential Calculus: Limit, Continuity and Differentiability",
+                    "Significance of Derivatives, Successive Differentiation",
+                    "Leibnitz's Theorem, Rolle's Theorem, Mean Value Theorem",
+                    "Taylor's Theorem in Finite and Infinite Forms",
+                    "Maclaurin's Theorem in Finite and Infinite Forms",
+                    "Partial Differentiation of Different Multi-Variable Functions",
+                    "Evaluation of Indeterminate Forms",
+                    "Tangents, Normals, Subtangents and Subnormals in Cartesian and Polar Coordinates",
+                    "Determination of Maximum and Minimum Values of Functions",
+                    "Points of Inflection with Applications",
+                    "Curvature and Radius of Curvature, Asymptotes, Curve Tracing",
+                    "Integral Calculus: Definitions of Integration",
+                    "Integration by Method of Substitution",
+                    "Integration by Parts, Integration by Method of Successive Reduction",
+                    "Definite Integrals, Definite Integral's Properties and Use in Summing Series",
+                    "Walli's Formula, Improper Integrals",
+                    "Differentiation and Integration Under Sign of Integration",
+                    "Beta Function and Gamma Function",
+                    "Jacobian, Multiple Integrals and Their Applications",
+                    "Area of Region Enclosed by Curve in Cartesian and Polar Coordinates",
+                    "Arc Lengths of Curve in Cartesian and Polar Coordinates"
+                ],
+                resources: {
+                    youtube: [
+                        { name: "Calculus - Khan Academy", url: "https://www.youtube.com/playlist?list=PL19E79", desc: "Complete Calculus 1-3" },
+                        { name: "Calculus - Professor Leonard", url: "https://www.youtube.com/playlist?list=PLF", desc: "University-level calculus" },
+                        { name: "MIT 18.01 Single Variable Calculus", url: "https://www.youtube.com/playlist?list=PL", desc: "MIT OpenCourseWare" }
+                    ],
+                    courses: [
+                        { name: "Calculus 1A - MIT OCW", url: "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/", desc: "Complete MIT course" },
+                        { name: "Calculus - Coursera (Ohio State)", url: "https://www.coursera.org/learn/calculus1", desc: "Free to audit" }
+                    ]
+                }
+            }
+        ];
+
+        // State Management
+        let progress = JSON.parse(localStorage.getItem('kuetProgress')) || {};
+        let notes = JSON.parse(localStorage.getItem('kuetNotes')) || {};
+        let currentFilter = 'all';
+        let currentNotesCourse = null;
+
+        // Initialize
+        function init() {
+            renderCourses();
+            updateStats();
+        }
+
+        // Render Courses
+        function renderCourses() {
+            const grid = document.getElementById('courseGrid');
+            grid.innerHTML = '';
+
+            const filtered = courses.filter(course => {
+                if (currentFilter === 'all') return true;
+                if (currentFilter === 'completed') {
+                    const courseProgress = getCourseProgress(course.code);
+                    return courseProgress === 100;
+                }
+                return course.type === currentFilter;
+            });
+
+            filtered.forEach(course => {
+                const courseProgress = getCourseProgress(course.code);
+                const completedCount = getCompletedCount(course.code);
+                const isCompleted = courseProgress === 100;
+
+                const card = document.createElement('div');
+                card.className = `course-card ${isCompleted ? 'completed' : ''}`;
+                card.dataset.type = course.type;
+                card.dataset.code = course.code;
+
+                const topicsHtml = course.topics.map((topic, idx) => {
+                    const isChecked = progress[`${course.code}-${idx}`] || false;
+                    return `
+                        <li class="topic-item ${isChecked ? 'completed' : ''}" onclick="toggleTopic('${course.code}', ${idx})">
+                            <div class="topic-checkbox ${isChecked ? 'checked' : ''}">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="topic-text">${topic}</span>
+                        </li>
+                    `;
+                }).join('');
+
+                const resourcesHtml = renderResources(course.resources);
+
+                card.innerHTML = `
+                    <div class="course-header">
+                        <span class="course-code">${course.code}</span>
+                        <h3 class="course-title">${course.title}</h3>
+                        <div class="course-meta">
+                            <span><i class="fas fa-book"></i> ${course.credits} Credits</span>
+                            <span><i class="fas fa-clock"></i> ${course.theory}L + ${course.lab}P hrs</span>
+                            <span><i class="fas fa-list"></i> ${course.topics.length} Topics</span>
+                        </div>
+                    </div>
+                    <div class="course-body">
+                        <div class="course-progress">
+                            <span class="course-progress-text">${completedCount}/${course.topics.length} completed</span>
+                            <span style="font-weight: 600; color: var(--accent);">${courseProgress}%</span>
+                        </div>
+                        <div class="course-progress-bar">
+                            <div class="course-progress-fill" style="width: ${courseProgress}%"></div>
+                        </div>
+                        
+                        <ul class="topics-list">
+                            ${topicsHtml}
+                        </ul>
+
+                        <div class="resources-section">
+                            <div class="resources-toggle" onclick="toggleResources(this)">
+                                <span><i class="fas fa-external-link-alt"></i> Free Learning Resources</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="resources-content">
+                                ${resourcesHtml}
+                            </div>
+                        </div>
+
+                        <div class="course-actions">
+                            <button class="btn btn-outline" onclick="openNotes('${course.code}')">
+                                <i class="fas fa-sticky-note"></i> Notes
+                            </button>
+                            <button class="btn btn-primary" onclick="markAll('${course.code}')">
+                                <i class="fas fa-check-double"></i> Complete All
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        function renderResources(resources) {
+            let html = '';
+            
+            if (resources.youtube && resources.youtube.length > 0) {
+                html += `
+                    <div class="resource-category">
+                        <div class="resource-category-title"><i class="fab fa-youtube"></i> YouTube Playlists</div>
+                        ${resources.youtube.map(r => `
+                            <a href="${r.url}" target="_blank" class="resource-link">
+                                <div class="resource-icon youtube"><i class="fab fa-youtube"></i></div>
+                                <div class="resource-info">
+                                    <span class="resource-name">${r.name}</span>
+                                    <span class="resource-desc">${r.desc}</span>
+                                </div>
+                                <i class="fas fa-external-link-alt" style="color: var(--text-muted); font-size: 0.75rem;"></i>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            if (resources.courses && resources.courses.length > 0) {
+                html += `
+                    <div class="resource-category">
+                        <div class="resource-category-title"><i class="fas fa-graduation-cap"></i> Free Courses & Certifications</div>
+                        ${resources.courses.map(r => `
+                            <a href="${r.url}" target="_blank" class="resource-link">
+                                <div class="resource-icon course"><i class="fas fa-university"></i></div>
+                                <div class="resource-info">
+                                    <span class="resource-name">${r.name}</span>
+                                    <span class="resource-desc">${r.desc}</span>
+                                </div>
+                                <i class="fas fa-external-link-alt" style="color: var(--text-muted); font-size: 0.75rem;"></i>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        // Progress Functions
+        function getCompletedCount(code) {
+            const course = courses.find(c => c.code === code);
+            return course.topics.filter((_, idx) => progress[`${code}-${idx}`]).length;
+        }
+
+        function getCourseProgress(code) {
+            const course = courses.find(c => c.code === code);
+            const completed = getCompletedCount(code);
+            return Math.round((completed / course.topics.length) * 100);
+        }
+
+        function toggleTopic(code, idx) {
+            const key = `${code}-${idx}`;
+            progress[key] = !progress[key];
+            saveProgress();
+            renderCourses();
+            updateStats();
+            showToast(progress[key] ? 'Topic marked complete!' : 'Topic marked incomplete');
+        }
+
+        function markAll(code) {
+            const course = courses.find(c => c.code === code);
+            const allCompleted = getCompletedCount(code) === course.topics.length;
+            
+            course.topics.forEach((_, idx) => {
+                progress[`${code}-${idx}`] = !allCompleted;
+            });
+            
+            saveProgress();
+            renderCourses();
+            updateStats();
+            showToast(allCompleted ? 'All topics reset!' : 'All topics completed!');
+        }
+
+        function updateStats() {
+            const totalTopics = courses.reduce((sum, c) => sum + c.topics.length, 0);
+            const completedTopics = Object.values(progress).filter(v => v).length;
+            const overallPercent = Math.round((completedTopics / totalTopics) * 100);
+
+            document.getElementById('completedTopics').textContent = completedTopics;
+            document.getElementById('overallPercent').textContent = `${overallPercent}%`;
+            document.getElementById('overallCircle').style.setProperty('--progress', `${overallPercent}%`);
+            document.getElementById('overallBar').style.setProperty('--progress', `${overallPercent}%`);
+            document.getElementById('progressText').textContent = `${completedTopics} of ${totalTopics} topics`;
+
+            // Update stat card
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues[1].textContent = completedTopics;
+        }
+
+        function saveProgress() {
+            localStorage.setItem('kuetProgress', JSON.stringify(progress));
+            showSaveIndicator();
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveStatus');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        // Filter Functions
+        function filterCourses(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.textContent.toLowerCase().includes(type) || 
+                    (type === 'all' && tab.textContent === 'All') ||
+                    (type === 'completed' && tab.textContent === 'Completed'));
+            });
+            renderCourses();
+        }
+
+        // Resources Toggle
+        function toggleResources(element) {
+            const content = element.nextElementSibling;
+            const icon = element.querySelector('.fa-chevron-down');
+            content.classList.toggle('active');
+            icon.style.transform = content.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0)';
+            icon.style.transition = 'transform 0.3s';
+        }
+
+        // Notes Functions
+        function openNotes(code) {
+            currentNotesCourse = code;
+            const course = courses.find(c => c.code === code);
+            document.getElementById('notesCourseTitle').textContent = `${course.code}: ${course.title}`;
+            document.getElementById('notesArea').value = notes[code] || '';
+            document.getElementById('notesModal').classList.add('active');
+        }
+
+        function closeNotes() {
+            document.getElementById('notesModal').classList.remove('active');
+            currentNotesCourse = null;
+        }
+
+        function saveNotes() {
+            if (currentNotesCourse) {
+                notes[currentNotesCourse] = document.getElementById('notesArea').value;
+                localStorage.setItem('kuetNotes', JSON.stringify(notes));
+                closeNotes();
+                showToast('Notes saved successfully!');
+            }
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Close modal on overlay click
+        document.getElementById('notesModal').addEventListener('click', function(e) {
+            if (e.target === this) closeNotes();
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeNotes();
+        });
+
+        // Initialize app
+        init();
+    </script>
+</body>
+</html>
